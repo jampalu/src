@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Komala Organics</title>
+  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <h1>Komala Organics</h1>
+  <div id="info">
+    <div id="logo" style="display:none">
+      <img src="/Images/Logo_KO.PNG">
+    </div>
+      <div id="details" style="display:none">
+        <p>Phone: 123456789</p>
+        <p>Email: komalaorganics@gmail.com</p>
+      </div>
+  </div>
+
+<div id="input">
+
+    <div class="item-input">
+      <label for="itemName">Item Name: </label>
+      <select name="items" id="items">
+        <option value="neemSoap">Neem Soap</option>
+        <option value="milkSoap">Milk Soap</option>
+        <option value="charcoalSoap">Charcoal Soap</option>
+        <option value="strawberryLB">Strawberry Lip Balm</option>
+        <option value="chocovanilaLB">Choco-vanila Lip Balm</option>
+        <option value="bubblegumLB">Bubble-gum Lip Balm</option>
+      </select>
+    </div>
+
+    <div class="item-input">
+      <label for="itemQty">Item Quantity: </label>
+      <input type="number" class="form-control" id="itemQty" placeholder="Enter Item Quantity" name="qty">
+    </div>
+
+    <div class="item-input">
+      <label for="itemPrice">Item Price: </label>
+      <input type="number" class="form-control" id="itemPrice" placeholder="Enter Item Price" name="price">
+    </div>
+
+</div>
+
+  <div>
+    <button class="button" id="addItem">Add Item</button>
+  </div>
+
+  <div>
+    <button type="submit" id="printPdf" class="button button2">Print PDF</button>
+  </div>
+
+  <div id="table">
+    <table id="itemList" cellspacing="0px" cellpadding="20px" text-align="center">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

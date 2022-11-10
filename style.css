@@ -1,0 +1,84 @@
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	color: #FFF;
+	background-color: rgb(43, 40, 40);
+}
+
+header h1{ 
+	font-size: 2.5rem;
+	font-weight: 300;
+	color: var(--grey);
+	margin-bottom: 1rem;
+}
+#input{
+  display: flex;
+}
+#addItem, #printPdf{
+  display: flex;
+  border-radius: 1rem;
+}
+.printPdf{
+  background-color: #4CAF50;
+}
+
+.button{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 6px 6px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin-top: 10px;
+}
+.button2 {
+  background-color: #008CBA;
+  margin-top: 10px;
+}
+table{
+  margin-top: 10px;
+}
+.info{
+  border: 1px solid;
+}
+
+.item-input label{
+font-size: 20px;
+font-weight: 400;
+font-family: 'Times New Roman', Times, serif;
+}
+#itemQty, #itemPrice, #items{
+  margin-top: 20px;
+	flex: 1 1 0%;
+	background-color: var(--darker);
+	padding: 1rem;
+	border-radius: 1rem;
+	margin-right: 1rem;
+	color: var(--light);
+	font-size: 1.25rem;
+}
+#items{
+  background-color: rgb(43, 40, 40);
+}
+
+.item-input::placeholder {
+	color: var(--grey);
+}
+th,td{
+  font-size: 14px;
+font-weight: 200;
+font-family: 'Times New Roman', Times, serif;
+text-transform: uppercase;
+border: 1px solid;
+}
+img{
+  border-radius: 50%;
+  width: 110px;
+  height: auto;
+}
+
+
+
