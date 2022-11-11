@@ -3,10 +3,13 @@ function main() {
     const inputDiv = document.getElementById('input');
     const logoDiv = document.getElementById('logo');
     const detailsDiv = document.getElementById('details');
+    const customerName = document.getElementById('customer').value;
+    document.getElementById('customerDetails').innerText = customerName;
     inputDiv.style.display = 'none';
     logoDiv.style.display = 'inline';
     detailsDiv.style.display = 'inline';
-    document.getElementById('addItem').setAttribute('hidden', 'hidden');
+    document.getElementById('addItem').style.display = 'none';
+    document.getElementById('printPdf').style.display = 'none';
     const table = document.getElementById('itemList');
     // eslint-disable-next-line max-len, no-shadow
     let sumVal = 0;
