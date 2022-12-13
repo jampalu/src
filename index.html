@@ -8,11 +8,10 @@
 </head>
 
 <body>
-  <h1>Komala Organics</h1>
+  <div id="logo" style="display:none">
+    <img src="/Images/Logo_KO.jpg">
+  </div>
   <div id="info">
-    <div id="logo" style="display:none">
-      <img src="/Images/Logo_KO.PNG">
-    </div>
       <div id="details" style="display:none">
         <p>Dear</p><p id="customerDetails"></p>
         <p> Thanks for support for Organic Products</p>
@@ -32,6 +31,8 @@
         <option value="neemSoap">Neem Soap</option>
         <option value="milkSoap">Milk Soap</option>
         <option value="charcoalSoap">Charcoal Soap</option>
+        <option value="aloeSoap">Aloe Vera & Almond Soap</option>
+        <option value="turmericSoap">Turmeric & Sandalwood Soap</option>
         <option value="strawberryLB">Strawberry Lip Balm</option>
         <option value="chocovanilaLB">Choco-vanila Lip Balm</option>
         <option value="bubblegumLB">Bubble-gum Lip Balm</option>
@@ -69,11 +70,7 @@
           <th>Item Name</th>
           <th>Quantity</th>
           <th>Price</th>
-          <th>Discount</th>
           <th>Cost</th>
-          <th>CGST(9%)</th>
-          <th>SGST(9%)</th>
-          <th>Total Cost</th>
         </tr>
       </thead>
 
@@ -82,7 +79,10 @@
       </tbody>
     </table>
   </div>
-  <p> Shop Organic | Stay Organic | Slay Organic</p>
+  <div id="footer">
+    <p> Shop Organic | Stay Organic | Slay Organic</p>
+    <p> *** Note: 10% discount and Free shipping on First 3 Orders ***</p>
+  </div>
 
   <script src="main.js"></script>
 </body>

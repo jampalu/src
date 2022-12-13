@@ -1,4 +1,5 @@
 function main() {
+  let discount = 0;
   document.getElementById('printPdf').addEventListener('click', () => {
     const inputDiv = document.getElementById('input');
     const logoDiv = document.getElementById('logo');
@@ -11,30 +12,70 @@ function main() {
     document.getElementById('addItem').style.display = 'none';
     document.getElementById('printPdf').style.display = 'none';
     const table = document.getElementById('itemList');
+    // eslint-disable-next-line no-use-before-define
+    if (!isNullOrEmpty(document.getElementById('discount').value)) {
+      discount = document.getElementById('discount').value;
+    }
     // eslint-disable-next-line max-len, no-shadow
-    let sumDiscount = 0;
-    let sumCost = 0;
-    let cgstTotal = 0;
-    let sgstTotal = 0;
-    let sumTotal = 0;
+    let totalCost = 0;
+    let totalQty = 0;
     // eslint-disable-next-line no-plusplus
     for (let i = 1; i < table.rows.length; i++) {
       // eslint-disable-next-line no-undef
-      sumDiscount += parseFloat(table.rows[i].cells[3].innerHTML);
-      sumCost += parseFloat(table.rows[i].cells[4].innerHTML);
-      cgstTotal += parseFloat(table.rows[i].cells[5].innerHTML);
-      sgstTotal += parseFloat(table.rows[i].cells[6].innerHTML);
-      sumTotal += parseFloat(table.rows[i].cells[7].innerHTML);
+      totalQty += parseFloat(table.rows[i].cells[1].innerHTML);
+      totalCost += parseFloat(table.rows[i].cells[3].innerHTML);
     }
+    // eslint-disable-next-line max-len
+    const discountedTotal = parseFloat((totalCost / 100) * parseFloat(discount)).toFixed(2);
+
+    const gstTotal = parseFloat(((totalCost - discountedTotal) / 100) * 18).toFixed(2);
+
+    // eslint-disable-next-line max-len
+    const grandTotal = parseFloat((parseFloat(totalCost) + parseFloat(gstTotal)) - parseFloat(discountedTotal)).toFixed(2);
+    console.log(grandTotal);
     // eslint-disable-next-line no-plusplus
     const tbody = document.querySelector('#itemList tbody');
-    const row = `<td colspan="2"></td><td>Total</td><td>${sumDiscount.toFixed(2)}</td><td>${sumCost.toFixed(2)}</td><td>${cgstTotal.toFixed(2)}</td>
-    <td>${sgstTotal.toFixed(2)}</td><td>${sumTotal.toFixed(2)}</td>`;
+    // append prices row
+    const row = `
+    <td>Total</td>
+    <td>${totalQty}</td>
+    <td></td>
+    <td>${totalCost}</td>
+    `;
     const tr = document.createElement('tr');
     tr.innerHTML = row;
-
     tbody.appendChild(tr);
+    // display discount row only if discount is applicable
+    if (discount > 0) {
+      // append discount row
+      const discountRow = `
+      <td colspan="2"></td>
+      <td>Discount</td>
+      <td>${discountedTotal}</td>
+      `;
+      const discountR = document.createElement('tr');
+      discountR.innerHTML = discountRow;
+      tbody.appendChild(discountR);
+    }
+    const gstRow = `
+    <td colspan="2"></td>
+    <td>Taxes</td>
+    <td>${gstTotal}</td>
+    `;
+    const gstR = document.createElement('tr');
+    gstR.innerHTML = gstRow;
+    tbody.appendChild(gstR);
+    // append grand total row
+    const grandTotalRow = `
+      <td colspan="2"></td>
+      <td>Grand Total</td>
+      <td>${grandTotal}</td>
+      `;
+    const grandTotalR = document.createElement('tr');
+    grandTotalR.innerHTML = grandTotalRow;
+    tbody.appendChild(grandTotalR);
   });
+
   document.getElementById('addItem').addEventListener('click', () => {
     let rows = '';
     // const itemName = document.getElementById('itemName').value;
@@ -42,15 +83,15 @@ function main() {
     const itemName = selector.options[selector.selectedIndex].text;
     const itemQty = document.getElementById('itemQty').value;
     const itemPrice = document.getElementById('itemPrice').value;
-    const discount = document.getElementById('discount').value;
     // eslint-disable-next-line no-undef
     const cost = parseInt(itemQty, 10) * parseInt(itemPrice, 10);
-    const discountPrice = parseFloat((cost / 100) * discount).toFixed(2);
-    const cgst = parseFloat((cost / 100) * 9).toFixed(2);
-    const sgst = parseFloat((cost / 100) * 9).toFixed(2);
-    const itemCost = parseFloat(cost - discountPrice).toFixed(2);
-    const totalCost = parseFloat(itemCost + cgst + sgst).toFixed(2);
-    rows += `<td>${itemName}</td><td>${itemQty}</td><td>${itemPrice}</td><td>${discountPrice}</td><td>${itemCost}</td><td>${cgst}</td><td>${sgst}</td><td>${totalCost}</td>`;
+
+    rows += `
+    <td>${itemName}</td>
+    <td>${itemQty}</td>
+    <td>${itemPrice}</td>
+    <td>${cost}</td>
+    `;
     const tbody = document.querySelector('#itemList tbody');
     const tr = document.createElement('tr');
 
@@ -58,5 +99,11 @@ function main() {
     tbody.appendChild(tr);
   });
 }
-
+function isNullOrEmpty(val) {
+  // eslint-disable-next-line eqeqeq
+  if (val == null || typeof val === 'undefined' || val == [] || val == {} || val == '' || val == 'NaN') {
+    return true;
+  }
+  return false;
+}
 main();
