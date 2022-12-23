@@ -1,5 +1,6 @@
 function main() {
   let discount = 0;
+  let deliveryCharges = 0;
   document.getElementById('printPdf').addEventListener('click', () => {
     const inputDiv = document.getElementById('input');
     const logoDiv = document.getElementById('logo');
@@ -16,6 +17,10 @@ function main() {
     if (!isNullOrEmpty(document.getElementById('discount').value)) {
       discount = document.getElementById('discount').value;
     }
+    // eslint-disable-next-line no-use-before-define
+    if (!isNullOrEmpty(document.getElementById('deliveryCharges').value)) {
+      deliveryCharges = document.getElementById('deliveryCharges').value;
+    }
     // eslint-disable-next-line max-len, no-shadow
     let totalCost = 0;
     let totalQty = 0;
@@ -31,7 +36,7 @@ function main() {
     const gstTotal = parseFloat(((totalCost - discountedTotal) / 100) * 18).toFixed(2);
 
     // eslint-disable-next-line max-len
-    const grandTotal = parseFloat((parseFloat(totalCost) + parseFloat(gstTotal)) - parseFloat(discountedTotal)).toFixed(2);
+    const grandTotal = parseFloat((parseFloat(totalCost) + parseFloat(gstTotal) + parseFloat(deliveryCharges)) - parseFloat(discountedTotal)).toFixed(2);
     console.log(grandTotal);
     // eslint-disable-next-line no-plusplus
     const tbody = document.querySelector('#itemList tbody');
@@ -50,7 +55,7 @@ function main() {
       // append discount row
       const discountRow = `
       <td colspan="2"></td>
-      <td>Discount</td>
+      <td>Discount(-)</td>
       <td>${discountedTotal}</td>
       `;
       const discountR = document.createElement('tr');
@@ -59,12 +64,22 @@ function main() {
     }
     const gstRow = `
     <td colspan="2"></td>
-    <td>Taxes</td>
+    <td>Taxes(+)</td>
     <td>${gstTotal}</td>
+    `;
+    const deliverChargesRow = `
+    <td colspan="2"></td>
+    <td>Delivery Charges</td>
+    <td>${deliveryCharges}</td>
     `;
     const gstR = document.createElement('tr');
     gstR.innerHTML = gstRow;
     tbody.appendChild(gstR);
+
+    const dcR = document.createElement('tr');
+    dcR.innerHTML = deliverChargesRow;
+    tbody.appendChild(dcR);
+
     // append grand total row
     const grandTotalRow = `
       <td colspan="2"></td>
