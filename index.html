@@ -5,6 +5,7 @@
   <title>Komala Organics</title>
   <link rel="stylesheet" href="/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -41,22 +42,23 @@
 
     <div class="item-input">
       <label for="itemQty">Item Quantity: </label>
-      <input type="number" class="form-control" id="itemQty" placeholder="Enter Item Quantity" name="qty">
+      <input type="number" class="form-control" id="itemQty" placeholder="Enter Item Quantity" name="qty" required>
     </div>
 
-    <div class="item-input">
-      <label for="itemPrice">Item Price: </label>
-      <input type="number" class="form-control" id="itemPrice" placeholder="Enter Item Price" name="price">
-    </div>
-    <div class="item-input">
-      <label for="discount">Discount %</label>
-      <input type="number" class="form-control" id="discount" placeholder="Discount" name="discount">
-    </div>
-    <div class="item-input">
-      <label for="deliveryCharges">Delivery Charges %</label>
-      <input type="number" class="form-control" id="deliveryCharges" placeholder="Delivery Charges" name="deliveryCharges">
-    </div>
-
+</div>
+<div id="charge">
+  <div class="item-input">
+    <label for="itemPrice">Item Price: </label>
+    <input type="number" class="form-control" id="itemPrice" placeholder="Enter Item Price" name="price">
+  </div>
+  <div class="item-input">
+    <label for="discount">Discount %</label>
+    <input type="number" class="form-control" id="discount" placeholder="Discount" name="discount">
+  </div>
+  <div class="item-input">
+    <label for="deliveryCharges">Delivery Charges</label>
+    <input type="number" class="form-control" id="deliveryCharges" placeholder="Delivery Charges" name="deliveryCharges">
+  </div>
 </div>
 
   <div>

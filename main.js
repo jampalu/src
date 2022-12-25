@@ -1,13 +1,22 @@
+/* eslint-disable no-undef */
 function main() {
   let discount = 0;
   let deliveryCharges = 0;
+  // defaulting values
+  $('#itemQty').attr('value', 1);
+  $('#itemPrice').attr('value', 99);
+  /**
+   * TRIGGERS ON CLICK OF PDF BUTTON
+   */
   document.getElementById('printPdf').addEventListener('click', () => {
     const inputDiv = document.getElementById('input');
+    const chargeDiv = document.getElementById('charge');
     const logoDiv = document.getElementById('logo');
     const detailsDiv = document.getElementById('details');
     const customerName = document.getElementById('customer').value;
     document.getElementById('customerDetails').innerText = `${customerName},`;
     inputDiv.style.display = 'none';
+    chargeDiv.style.display = 'none';
     logoDiv.style.display = 'inline';
     detailsDiv.style.display = 'inline';
     document.getElementById('addItem').style.display = 'none';
@@ -37,9 +46,8 @@ function main() {
 
     // eslint-disable-next-line max-len
     const grandTotal = parseFloat((parseFloat(totalCost) + parseFloat(gstTotal) + parseFloat(deliveryCharges)) - parseFloat(discountedTotal)).toFixed(2);
-    console.log(grandTotal);
     // eslint-disable-next-line no-plusplus
-    const tbody = document.querySelector('#itemList tbody');
+    let tbody = document.querySelector('#itemList tbody');
     // append prices row
     const row = `
     <td>Total</td>
@@ -52,45 +60,33 @@ function main() {
     tbody.appendChild(tr);
     // display discount row only if discount is applicable
     if (discount > 0) {
-      // append discount row
-      const discountRow = `
-      <td colspan="2"></td>
-      <td>Discount(-)</td>
-      <td>${discountedTotal}</td>
-      `;
-      const discountR = document.createElement('tr');
-      discountR.innerHTML = discountRow;
-      tbody.appendChild(discountR);
+      // eslint-disable-next-line no-use-before-define
+      tbody = addRow('Discount(-)', discountedTotal, tbody);
     }
-    const gstRow = `
-    <td colspan="2"></td>
-    <td>Taxes(+)</td>
-    <td>${gstTotal}</td>
-    `;
-    const deliverChargesRow = `
-    <td colspan="2"></td>
-    <td>Delivery Charges</td>
-    <td>${deliveryCharges}</td>
-    `;
-    const gstR = document.createElement('tr');
-    gstR.innerHTML = gstRow;
-    tbody.appendChild(gstR);
 
-    const dcR = document.createElement('tr');
-    dcR.innerHTML = deliverChargesRow;
-    tbody.appendChild(dcR);
-
-    // append grand total row
-    const grandTotalRow = `
-      <td colspan="2"></td>
-      <td>Grand Total</td>
-      <td>${grandTotal}</td>
-      `;
-    const grandTotalR = document.createElement('tr');
-    grandTotalR.innerHTML = grandTotalRow;
-    tbody.appendChild(grandTotalR);
+    // eslint-disable-next-line no-use-before-define
+    tbody = addRow('Taxes(+)', gstTotal, tbody);
+    // eslint-disable-next-line no-use-before-define
+    tbody = addRow('Delivery Charges', deliveryCharges, tbody);
+    // eslint-disable-next-line no-use-before-define
+    tbody = addRow('Grand Total', grandTotal, tbody);
   });
 
+  function addRow(thead, fieldVal, tbody) {
+    const row = `
+    <td colspan="2"></td>
+    <td>${thead}</td>
+    <td>${fieldVal}</td>
+    `;
+    const tRow = document.createElement('tr');
+    tRow.innerHTML = row;
+    tbody.appendChild(tRow);
+    return tbody;
+  }
+
+  /**
+   * TRIGGERS ON CLICK OF ADD ITEM BUTTON
+   */
   document.getElementById('addItem').addEventListener('click', () => {
     let rows = '';
     // const itemName = document.getElementById('itemName').value;
@@ -112,6 +108,16 @@ function main() {
 
     tr.innerHTML = rows;
     tbody.appendChild(tr);
+  });
+  // eslint-disable-next-line no-undef
+  $('#items').on('change', () => {
+    const selector = document.querySelector('#items');
+    const itemName = selector.options[selector.selectedIndex].text;
+    if (itemName.includes('Soap')) {
+      $('#itemPrice').val(99);
+    } else {
+      $('#itemPrice').val(169);
+    }
   });
 }
 function isNullOrEmpty(val) {

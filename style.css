@@ -12,7 +12,7 @@ h1{
 	margin-bottom: 1rem;
   color: green;
 }
-#input{
+#input, #charge{
   display: flex;
 }
 #addItem, #printPdf{
@@ -62,7 +62,7 @@ p{
     
 }
 
-#itemQty, #itemPrice, #items, #customer, #discount{
+#itemQty, #itemPrice, #items, #customer, #discount, #deliveryCharges{
   margin-top: 20px;
 	flex: 1 1 0%;
 	background-color: var(--darker);
